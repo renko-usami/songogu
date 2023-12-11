@@ -39,9 +39,7 @@ ytdlp = yt_dlp.YoutubeDL(ytdl_format_options)
 class YTDLSource(discord.PCMVolumeTransformer):
     def __init__(self, source, *, data, volume=0.5):
         super().__init__(source, volume)
- 
         self.data = data
- 
         self.title = data.get('title')
         self.url = data.get('url')
  
@@ -55,6 +53,7 @@ class YTDLSource(discord.PCMVolumeTransformer):
  
         filename = data['url'] if stream else yt_dlp.prepare_filename(data)
         return cls(discord.FFmpegPCMAudio(filename, **ffmpeg_options), data=data)
+
  ### 여기까지 yt_dlp ###
  
 # 음악을 재생하는 클래스
@@ -97,8 +96,7 @@ class Music(commands.Cog):
             await ctx.send(f'"{song.title}"를 재생 중이에요.')
         else:
             await self.정지(ctx)
-            
-
+         
     @commands.command()
     async def 정지(self, ctx):
         self.playlist = []
